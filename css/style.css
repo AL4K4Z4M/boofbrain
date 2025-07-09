@@ -92,7 +92,7 @@ header {
   display: flex;
   align-items: center;
   gap: var(--spacing);
-  overflow: hidden;
+  flex-wrap: wrap;
 }
 .main-nav a {
   font-family: var(--font-nav);
