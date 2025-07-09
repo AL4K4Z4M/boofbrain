@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>My Account — boofbrain</title> <!-- Changed title -->
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .my-account-form { max-width: 400px; margin: var(--spacing) auto; }
+    .my-account-form input[type="file"] { margin-bottom: var(--spacing); }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <section class="my-account-section"> <!-- Changed class -->
+      <div class="content-wrapper">
+        <h1 class="section-title">My Account</h1> <!-- Changed title -->
+        <p>Manage your profile settings.</p> <!-- Changed subtitle -->
+
+        <form id="myAccountForm" class="my-account-form" enctype="multipart/form-data"> <!-- Changed id and class -->
+          <div>
+            <label for="displayNameInput">Display Name:</label>
+            <input
+              type="text"
+              id="displayNameInput"
+              name="display_name"
+              placeholder="Enter your display name"
+              required
+            />
+          </div>
+          <div>
+            <label for="profilePictureUpload">Profile Picture:</label>
+            <input
+              type="file"
+              id="profilePictureUpload"
+              name="profile_pic"
+              accept="image/jpeg,image/png"
+              <!-- 'required' attribute can be re-evaluated; for an "update" page, it might not be required to upload a new pic every time -->
+            />
+            <img id="profilePicturePreview" src="#" alt="Profile picture preview" style="display:none; max-width: 200px; max-height: 200px; margin-top: 10px;">
+          </div>
+          <button type="submit" id="saveProfileButton" class="submit-button">Save Profile</button> <!-- Changed button id and text -->
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/main.js"></script>
+  <script src="js/my-account.js"></script>
+</body>
+</html>
