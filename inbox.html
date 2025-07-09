@@ -36,8 +36,27 @@
 
     <hr class="inbox-separator" />
 
-    <!-- Inbox List -->
-    <section id="inbox-list" class="inbox-list"></section>
+    <!-- Inbox Layout: Conversation List and Selected Conversation View -->
+    <div id="inbox-layout">
+      <div id="conversation-list-pane">
+        <h2>Conversations</h2>
+        <div id="conversation-list-items">
+          <!-- Conversation items will be populated by JS -->
+        </div>
+      </div>
+      <div id="conversation-view-pane">
+        <!-- Selected conversation messages and reply form will appear here -->
+        <p id="conversation-placeholder">Select a conversation to view messages or compose a new message above to start a new chat.</p>
+        <div id="conversation-header"></div>
+        <div id="message-display-area"></div>
+        <form id="reply-form" class="compose-form" style="display: none;">
+          <textarea id="reply-content" rows="3" maxlength="500" required placeholder="Type your reply…"></textarea>
+          <button type="submit" class="submit-button">Send Reply</button>
+          <div id="reply-error" class="error"></div>
+          <div id="reply-success" class="success"></div>
+        </form>
+      </div>
+    </div>
   </main>
 
   <div id="footer-placeholder"></div>
