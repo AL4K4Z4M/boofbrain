@@ -149,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const txt = await resp.text();
         throw new Error(txt || 'Registration failed');
       }
-      // redirect to onboarding
-      window.location.href = 'onboarding.html';
+      // redirect to my-account page after registration
+      window.location.href = 'my-account.html';
     } catch (err) {
       document.getElementById('register-error').textContent = err.message;
     }
