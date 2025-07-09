@@ -14,6 +14,7 @@ async function loadHeader() {
         { href: '/', text: 'Home' },
         { href: '/about.html', text: 'About' },
         { href: '/community.html', text: 'Community' },
+        { href: '/services.html', text: 'Services' }, // Added Services link
         { href: '/contact_us.html', text: 'Contact Us' }
     ];
 
