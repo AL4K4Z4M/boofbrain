@@ -3,63 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>boofbrain — DimeByTheSword</title>
+  <title>boofbrain — DimeByTheSword Spotlight</title>
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    .content-container {
-      text-align: center;
-      padding: calc(var(--spacing) * 2) var(--spacing);
-    }
-    .page-image {
-      max-width: 100%;
-      max-height: 400px;
-      width: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: var(--spacing);
-      margin-bottom: var(--spacing);
-    }
-    .profile-description {
-      max-width: 700px;
-      margin: var(--spacing) auto;
-      text-align: left;
-      line-height: 1.8;
-      color: var(--color-text-muted);
-    }
-    .back-link {
-      display: inline-block;
-      margin-top: calc(var(--spacing) * 2);
-      padding: var(--spacing);
-      background-color: var(--color-primary);
-      color: var(--color-white);
-      text-decoration: none;
-      border-radius: var(--radius);
-      font-family: var(--font-tagline);
-      transition: background-color var(--transition);
-    }
-    .back-link:hover {
-      background-color: var(--color-secondary);
-    }
-  </style>
 </head>
 <body>
   <!-- HEADER INJECTION POINT -->
   <div id="header-placeholder"></div>
 
-  <main class="content-wrapper content-container">
-    <h1 class="section-title">Spotlight: DimeByTheSword</h1>
-    <img src="images/bythesword.jpeg" alt="DimeByTheSword" class="page-image"/>
-    <div class="profile-description">
-      <p>
-        This page is dedicated to DimeByTheSword, a valued member of the community.
-        Known for [insert notable trait or content style here, e.g., "their engaging streams", "insightful commentary", "mastery of X game"].
-        DimeByTheSword brings [insert positive quality, e.g., "energy and excitement", "a unique perspective"] to the gaming world.
-      </p>
-      <p>
-        (This is placeholder text. Actual content about DimeByTheSword can be added here based on their preferences or public information.)
-      </p>
+  <main class="content-wrapper streamer-profile-page">
+    <header class="streamer-header">
+      <h1 class="section-title streamer-title">Spotlight: DimeByTheSword</h1>
+      <p class="streamer-tagline">Your go-to source for engaging gameplay and community fun!</p>
+    </header>
+
+    <section class="streamer-content">
+      <div class="streamer-image-container">
+        <img src="images/bythesword.jpeg" alt="DimeByTheSword" class="streamer-image"/>
+      </div>
+      <div class="streamer-info">
+        <h2 class="streamer-section-title">About DimeByTheSword</h2>
+        <p class="streamer-bio">
+          DimeByTheSword is a dynamic and engaging streamer known for their captivating content and interactive community.
+          With a passion for [mention a popular game genre, e.g., "action RPGs and competitive shooters"],
+          DimeByTheSword consistently delivers high-energy broadcasts, insightful commentary, and a welcoming atmosphere for all viewers.
+        </p>
+        <p class="streamer-bio">
+          Whether you're looking for skilled gameplay, hilarious moments, or just a great place to hang out,
+          DimeByTheSword's channel is the place to be. Join the community and be part of the excitement!
+        </p>
+
+        <div class="streamer-highlights">
+          <h3 class="streamer-subsection-title">Content Highlights</h3>
+          <ul>
+            <li>Thrilling live streams several times a week.</li>
+            <li>Interactive Q&A sessions with the audience.</li>
+            <li>Special community game nights.</li>
+            <li>Collaborations with other creators.</li>
+          </ul>
+        </div>
+        <div class="streamer-social-links">
+            <h3 class="streamer-subsection-title">Follow DimeByTheSword</h3>
+            <!-- Add actual links if available, otherwise these are placeholders -->
+            <a href="#" class="social-link twitch">Twitch</a>
+            <a href="#" class="social-link twitter">Twitter</a>
+            <a href="#" class="social-link youtube">YouTube</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="streamer-page-nav">
+      <a href="community.html" class="cta-button alt-cta">Back to Community Suggestions</a>
     </div>
-    <a href="community.html" class="back-link">Back to Suggestions</a>
+
   </main>
 
   <!-- FOOTER INJECTION POINT -->
