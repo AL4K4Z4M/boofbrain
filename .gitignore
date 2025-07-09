@@ -1,5 +1,9 @@
-.env
+*.env
 node_modules/
 nohup.out
 uploads/
 sherlock/
+my_doom_bundle/
+doom.jsdos
+sherlock/
+images/
