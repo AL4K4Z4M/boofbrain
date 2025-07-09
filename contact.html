@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leave an Idea — boofbrain</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <div id="header-placeholder"></div>
+
+  <main>
+    <section class="contact-section">
+      <div class="content-wrapper">
+        <h1 class="section-title">Leave an Idea</h1>
+        <p class="contact-intro">
+          Got a spark? Share your wildest thoughts and we’ll turn them into reality on boofbrain.com!
+        </p>
+        <form 
+          class="contact-form" 
+          action="https://formspree.io/f/xqabnezj" 
+          method="POST"
+        >
+          <input 
+            type="text" 
+            name="name" 
+            placeholder="Your Name" 
+            required 
+          />
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Your Email" 
+            required 
+          />
+          <textarea 
+            name="idea" 
+            rows="6" 
+            placeholder="Your Brilliant Idea…" 
+            required
+          ></textarea>
+          <button type="submit" class="submit-button">
+            Submit Idea
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <div id="footer-placeholder"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>

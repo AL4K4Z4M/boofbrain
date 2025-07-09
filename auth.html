@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Login / Register</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <div class="auth-container">
+    <div class="tabs">
+      <button id="tab-login" class="active">Log In</button>
+      <button id="tab-register">Register</button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <form id="login-form" class="active auth-form">
+      <input type="text" id="login-username" placeholder="Username" required />
+      <div style="position:relative;">
+        <input type="password" id="login-password" placeholder="Password" required />
+        <label style="position:absolute; right:0.5rem; top:50%; transform:translateY(-50%); font-size:0.8rem; cursor:pointer;">
+          <input type="checkbox" id="login-show-pw" /> Show
+        </label>
+      </div>
+      <button type="submit" class="submit-button">Log In</button>
+      <div id="login-error" class="error"></div>
+    </form>
+
+    <!-- REGISTER FORM -->
+    <form id="register-form" class="auth-form">
+      <input type="text" id="reg-username" placeholder="Username" required />
+      <input type="email" id="reg-email" placeholder="Email" required />
+      <div style="position:relative;">
+        <input type="password" id="reg-password" placeholder="Password" required />
+        <label style="position:absolute; right:0.5rem; top:50%; transform:translateY(-50%); font-size:0.8rem; cursor:pointer;">
+          <input type="checkbox" id="reg-show-pw" /> Show
+        </label>
+      </div>
+      <div style="position:relative;">
+        <input type="password" id="reg-password-confirm" placeholder="Confirm Password" required />
+        <label style="position:absolute; right:0.5rem; top:50%; transform:translateY(-50%); font-size:0.8rem; cursor:pointer;">
+          <input type="checkbox" id="reg-show-pw-confirm" /> Show
+        </label>
+      </div>
+      <div id="password-errors" class="error"></div>
+      <button type="submit" class="submit-button" disabled>Register</button>
+      <div id="register-error" class="error"></div>
+    </form>
+  </div>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

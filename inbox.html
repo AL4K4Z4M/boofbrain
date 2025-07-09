@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Inbox</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main class="content-wrapper inbox-page">
+    <h1>Your Inbox</h1>
+
+    <!-- Compose Form -->
+    <section class="compose-section">
+      <h2>Compose Message</h2>
+      <form id="compose-form" class="compose-form">
+        <label for="recipient-select">To:</label>
+        <select id="recipient-select" required>
+          <option value="" disabled selected>— select user —</option>
+        </select>
+
+        <label for="compose-content">Message:</label>
+        <textarea id="compose-content"
+                  rows="4"
+                  maxlength="500"
+                  required
+                  placeholder="Type your message…"></textarea>
+
+        <button type="submit" class="submit-button">Send</button>
+        <div id="compose-error" class="error"></div>
+        <div id="compose-success" class="success"></div>
+      </form>
+    </section>
+
+    <hr class="inbox-separator" />
+
+    <!-- Inbox List -->
+    <section id="inbox-list" class="inbox-list"></section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/main.js"></script>
+  <script src="js/inbox.js"></script>
+</body>
+</html>

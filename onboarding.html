@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Get Started — boofbrain</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    .onboard-form { max-width: 400px; margin: var(--spacing) auto; }
+    .onboard-form input[type="file"] { margin-bottom: var(--spacing); }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <main>
+    <section class="contact-section">
+      <div class="content-wrapper">
+        <h1 class="section-title">Welcome to boofbrain!</h1>
+        <p>Please set up your profile before proceeding.</p>
+
+        <form id="onboardForm" class="onboard-form" enctype="multipart/form-data">
+          <input
+            type="text"
+            name="display_name"
+            placeholder="Display Name"
+            required
+          />
+          <input
+            type="file"
+            name="profile_pic"
+            accept="image/jpeg,image/png"
+            required
+          />
+          <button type="submit" class="submit-button">Complete Setup</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="js/main.js"></script>
+  <script src="js/onboard.js"></script>
+</body>
+</html>

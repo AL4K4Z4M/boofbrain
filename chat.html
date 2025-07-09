@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain Chat</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Chat-specific overrides */
+    .chat-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: var(--color-text);
+    }
+    .message {
+      margin-bottom: 0.75rem;
+      word-wrap: break-word;
+    }
+    .message .author {
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    .chat-form {
+      display: flex;
+      border-top: 1px solid var(--divider);
+    }
+    .chat-form input {
+      flex: 1;
+      border: none;
+      padding: var(--spacing);
+      font-size: 1rem;
+    }
+    .chat-form button {
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      padding: var(--spacing) 1.5rem;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .chat-form button:hover {
+      background: var(--color-secondary);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <main class="chat-container">
+    <div class="messages" id="messages"></div>
+    <form id="chatForm" class="chat-form" autocomplete="off">
+      <input id="messageInput" type="text" placeholder="Type your message…" required maxlength="500" />
+      <button type="submit">Send</button>
+    </form>
+  </main>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="js/main.js"></script>    <!-- header/footer & auth logic -->
+  <script src="js/chat.js"></script>    <!-- chat client logic -->
+</body>
+</html>
