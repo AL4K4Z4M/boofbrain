@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Can it run DOOM?</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .content-container {
+      text-align: center;
+      padding: calc(var(--spacing) * 2) var(--spacing);
+      min-height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .doom-answer {
+      font-family: var(--font-brand);
+      font-size: clamp(2rem, 8vw, 4rem);
+      color: var(--color-accent);
+      margin-bottom: var(--spacing);
+    }
+    .doom-subtext {
+      font-size: 1.2rem;
+      color: var(--color-text-muted);
+      max-width: 600px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: calc(var(--spacing) * 2);
+      padding: var(--spacing);
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-family: var(--font-tagline);
+      transition: background-color var(--transition);
+    }
+    .back-link:hover {
+      background-color: var(--color-secondary);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <main class="content-wrapper content-container">
+    <h1 class="section-title">The Eternal Question: Can it run DOOM?</h1>
+    <p class="doom-answer">YES!</p>
+    <p class="doom-subtext">
+      (Probably. This is a placeholder page. Actual DOOM integration would be a much larger project!)
+    </p>
+    <img src="images/no.gif" alt="DOOM guy" style="width:100px; height:auto; margin-top:1rem;" />
+    <a href="community.html" class="back-link">Back to Suggestions</a>
+  </main>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

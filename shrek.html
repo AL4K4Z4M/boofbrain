@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Shrek is Love</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .content-container {
+      text-align: center;
+      padding: calc(var(--spacing) * 2) var(--spacing);
+    }
+    .page-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: var(--spacing);
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: calc(var(--spacing) * 2);
+      padding: var(--spacing);
+      background-color: var(--color-primary);
+      color: var(--color-white);
+      text-decoration: none;
+      border-radius: var(--radius);
+      font-family: var(--font-tagline);
+      transition: background-color var(--transition);
+    }
+    .back-link:hover {
+      background-color: var(--color-secondary);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <main class="content-wrapper content-container">
+    <h1 class="section-title">A Moment of Shrek</h1>
+    <p>As requested by the community, please enjoy this GIF.</p>
+    <img src="images/shrek_is_love.gif" alt="Shrek is Love GIF" class="page-image"/>
+    <a href="community.html" class="back-link">Back to Suggestions</a>
+  </main>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

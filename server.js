@@ -80,6 +80,48 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// List conversations (partners)
+app.get('/api/conversations', verifyToken, async (req, res) => {
+  try {
+    const currentUserId = req.user.id;
+    const query = `
+      SELECT DISTINCT u.id, u.username
+      FROM users u
+      JOIN messages m ON u.id = m.sender_id OR u.id = m.recipient_id
+      WHERE (m.sender_id = ? OR m.recipient_id = ?) AND u.id != ?
+      ORDER BY u.username;
+    `;
+    const [rows] = await db.execute(query, [currentUserId, currentUserId, currentUserId]);
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching conversations:', err);
+    res.sendStatus(500);
+  }
+});
+
+// Get message thread with a specific user
+app.get('/api/messages/thread/:otherId', verifyToken, async (req, res) => {
+  try {
+    const currentUserId = req.user.id;
+    const otherUserId = Number(req.params.otherId);
+    if (isNaN(otherUserId)) {
+      return res.status(400).send('Invalid user ID.');
+    }
+
+    const query = `
+      SELECT m.id, m.sender_id, m.recipient_id, m.content, m.created_at, m.is_read
+      FROM messages m
+      WHERE (m.sender_id = ? AND m.recipient_id = ?) OR (m.sender_id = ? AND m.recipient_id = ?)
+      ORDER BY m.created_at ASC;
+    `;
+    const [rows] = await db.execute(query, [currentUserId, otherUserId, otherUserId, currentUserId]);
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching thread:', err);
+    res.sendStatus(500);
+  }
+});
+
 // Login
 app.post('/api/login', async (req, res) => {
   const { username, password } = req.body;
