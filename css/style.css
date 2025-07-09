@@ -573,7 +573,113 @@ footer {
   cursor: default;
 }
 
-/* Responsive tweaks */
+/* New Inbox Layout Styles */
+#inbox-layout {
+  display: flex;
+  gap: calc(var(--spacing) * 2);
+  margin-top: calc(var(--spacing) * 2);
+  border-top: 1px solid var(--divider);
+  padding-top: calc(var(--spacing) * 2);
+}
+
+#conversation-list-pane {
+  flex: 1;
+  min-width: 250px; /* Minimum width for the list pane */
+  max-width: 350px; /* Maximum width for the list pane */
+  border-right: 1px solid var(--divider);
+  padding-right: var(--spacing);
+  max-height: 70vh; /* Limit height and make it scrollable */
+  overflow-y: auto;
+}
+
+#conversation-list-pane h2 {
+  font-family: var(--font-nav);
+  margin-bottom: var(--spacing);
+  color: var(--color-text);
+  font-size: 1.5rem;
+}
+
+#conversation-list-items .conversation-list-item {
+  padding: var(--spacing);
+  margin-bottom: var(--spacing);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  border: 1px solid transparent; /* For smooth transition with active state */
+}
+
+#conversation-list-items .conversation-list-item:hover {
+  background-color: var(--color-feature-bg);
+}
+
+#conversation-list-items .conversation-list-item.active {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-secondary);
+}
+
+#conversation-view-pane {
+  flex: 2; /* Takes more space */
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh; /* Limit height to align with list pane */
+}
+
+#conversation-placeholder {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 1.1rem;
+  margin: auto; /* Center placeholder text */
+}
+
+#conversation-header h3 {
+  font-family: var(--font-nav);
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: var(--spacing);
+  padding-bottom: var(--spacing);
+  border-bottom: 1px solid var(--divider);
+}
+
+#message-display-area {
+  flex-grow: 1; /* Allows this area to take up available space */
+  overflow-y: auto;
+  padding: var(--spacing) 0; /* Add some padding */
+  margin-bottom: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) / 2);
+}
+
+/* Ensure message-in and message-out take full width of their container if needed, but align self correctly */
+#message-display-area .message-in,
+#message-display-area .message-out {
+  padding: calc(var(--spacing) * 0.75) var(--spacing); /* Slightly adjust padding */
+  /* max-width is already set in general styles, which is good */
+}
+
+#reply-form {
+  margin-top: auto; /* Pushes reply form to the bottom if space is available */
+  border-top: 1px solid var(--divider);
+  padding-top: var(--spacing);
+}
+
+/* Responsive tweaks for Inbox */
+@media (max-width: 768px) {
+  #inbox-layout {
+    flex-direction: column;
+  }
+  #conversation-list-pane {
+    max-width: 100%;
+    border-right: none;
+    margin-bottom: var(--spacing);
+    max-height: 40vh; /* Adjust height for column layout */
+  }
+  #conversation-view-pane {
+     max-height: 50vh; /* Adjust height for column layout */
+  }
+}
+
 @media (max-width: 480px) {
   .content-wrapper {
     padding: 0 var(--spacing);
