@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <li><a href="contact.html">Contact</a></li>
             <li><a href="inbox.html">Inbox</a></li>
             <li class="nav-stats">Users: – | Online: –</li>
-            <li><a href="auth.html">${me ? 'Account' : 'Login'}</a></li>
+            <li><a href="${me ? 'my-account.html' : 'auth.html'}">${me ? 'My Account' : 'Login'}</a></li>
           </ul>
         </nav>
         <button class="nav-toggle" aria-label="toggle navigation">
@@ -66,34 +66,84 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn('Stats load failed', e);
   }
 
-  // 7) If logged in, swap in avatar/greeting/logout
-  if (me) {
+  // Function to update header for logged-in user
+  function updateLoggedInHeader(currentUser) {
     const navList = document.getElementById('nav-list');
-    // remove the existing Login/Account link
-    navList.querySelectorAll('li').forEach(li => {
-      const a = li.querySelector('a');
-      if (a?.getAttribute('href') === 'auth.html') {
-        li.remove();
-      }
-    });
+    if (!navList) return;
 
-    // build avatar + greeting + logout
+    // Clear existing dynamic elements (avatar, greeting, logout, old account link)
+    navList.querySelectorAll('.nav-avatar, .nav-greeting-li, .nav-logout-li, .nav-account-link-li').forEach(el => el.remove());
+
+    // Find and remove the generic Login/My Account link first
+    // It might have been updated by the initial HTML injection
+    const accountLinkLi = Array.from(navList.querySelectorAll('li')).find(li => {
+        const a = li.querySelector('a');
+        return a && (a.getAttribute('href') === 'auth.html' || a.getAttribute('href') === 'my-account.html');
+    });
+    if (accountLinkLi) {
+        accountLinkLi.remove();
+    }
+
+    // Build avatar + greeting + My Account link + logout
     let avatarHTML = '';
-    if (me.profile_pic) {
+    if (currentUser.profile_pic) {
       avatarHTML = `
         <li class="nav-avatar">
-          <img src="${window.location.origin}/${me.profile_pic}"
+          <img src="${window.location.origin}/${currentUser.profile_pic}"
                alt="Avatar" class="avatar-img"/>
         </li>`;
     }
-    const greetingHTML = `<li><span class="nav-greeting">Hi, ${me.display_name || me.username}</span></li>`;
-    const logoutHTML   = `<li><button id="logoutBtn" class="nav-logout">Logout</button></li>`;
+    const greetingHTML = `<li class="nav-greeting-li"><span class="nav-greeting">Hi, ${currentUser.display_name || currentUser.username}</span></li>`;
+    const myAccountLinkHTML = `<li class="nav-account-link-li"><a href="my-account.html">My Account</a></li>`;
+    const logoutHTML   = `<li class="nav-logout-li"><button id="logoutBtn" class="nav-logout">Logout</button></li>`;
 
-    navList.insertAdjacentHTML('beforeend', avatarHTML + greetingHTML + logoutHTML);
+    navList.insertAdjacentHTML('beforeend', avatarHTML + greetingHTML + myAccountLinkHTML + logoutHTML);
 
-    document.getElementById('logoutBtn').addEventListener('click', async () => {
-      await fetch('/api/logout', { method: 'POST', credentials: 'include' });
-      window.location.replace('auth.html');
-    });
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', async () => {
+          await fetch('/api/logout', { method: 'POST', credentials: 'include' });
+          window.me = null; // Clear the global 'me' object
+          updateGuestHeader(); // Re-render header for guest
+          window.location.replace('auth.html'); // Redirect to login
+        });
+    }
   }
+
+  // Function to update header for guest user
+  function updateGuestHeader() {
+    const navList = document.getElementById('nav-list');
+    if (!navList) return;
+
+    // Clear existing dynamic elements
+    navList.querySelectorAll('.nav-avatar, .nav-greeting-li, .nav-logout-li, .nav-account-link-li').forEach(el => el.remove());
+
+    // Ensure Login link is present
+    if (!navList.querySelector('a[href="auth.html"]')) {
+        const loginHTML = `<li><a href="auth.html">Login</a></li>`;
+        navList.insertAdjacentHTML('beforeend', loginHTML);
+    }
+  }
+
+
+  // 7) If logged in, swap in avatar/greeting/logout etc.
+  // Make 'me' a window global for easier access from my-account.js if needed, or pass through events.
+  window.me = me;
+
+  if (window.me) {
+    updateLoggedInHeader(window.me);
+  } else {
+    updateGuestHeader(); // Ensure header is correct for guests
+  }
+
+  // Listen for profile updates from my-account.js
+  document.addEventListener('userProfileUpdated', (event) => {
+    if (event.detail && window.me) {
+      // Update the global 'me' object
+      window.me.display_name = event.detail.display_name;
+      window.me.profile_pic = event.detail.profile_pic;
+      // Re-render the logged-in header parts
+      updateLoggedInHeader(window.me);
+    }
+  });
 });

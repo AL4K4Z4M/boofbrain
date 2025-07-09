@@ -1,39 +1,56 @@
 // js/my-account.js
 document.addEventListener('DOMContentLoaded', async () => {
-  // Ensure user is logged in, redirect if not (optional, but good practice for an account page)
+  const displayNameInput = document.getElementById('displayNameInput');
+  const profilePictureUpload = document.getElementById('profilePictureUpload');
+  const profilePicturePreview = document.getElementById('profilePicturePreview');
+  const myAccountForm = document.getElementById('myAccountForm');
+
+  // Fetch user data and pre-fill form
   try {
     const meResp = await fetch('/api/me', { credentials: 'include' });
     if (!meResp.ok) {
-      // If no active session, redirect to login
-      // window.location.href = 'auth.html';
-      // For now, we'll allow access but features might not fully work without a backend
-      console.warn('User not logged in or session expired. Profile saving may be limited to local changes.');
+      console.warn('User not logged in or session expired. Redirecting to login.');
+      // window.location.href = 'auth.html'; // Optional: redirect if not logged in
+      // For now, proceed but functionality might be limited
+      if (meResp.status === 401 && window.location.pathname !== '/auth.html') {
+        // More specific redirect if not on auth page already
+        // window.location.href = `auth.html?redirect=${encodeURIComponent(window.location.pathname)}`;
+      }
+      // Fallback to localStorage if API fails but there's local data (e.g. offline or simple demo)
+      if (displayNameInput && localStorage.getItem('displayName')) {
+        displayNameInput.value = localStorage.getItem('displayName');
+      }
+      // No profile pic from local storage easily, so skip preview for this case
     } else {
       const { user } = await meResp.json();
-      // Pre-fill display name if available from user object (e.g., from initial onboarding)
-      if (user && user.display_name) {
-        const displayNameInput = document.getElementById('displayNameInput');
-        if (displayNameInput) {
+      if (user) {
+        if (displayNameInput && user.display_name) {
           displayNameInput.value = user.display_name;
+        }
+        if (profilePicturePreview && user.profile_pic) {
+          // Assuming profile_pic is a URL path like 'uploads/avatar.jpg'
+          // Adjust if it's a full URL or needs prefixing
+          profilePicturePreview.src = `${window.location.origin}/${user.profile_pic}`;
+          profilePicturePreview.style.display = 'block';
+        }
+      } else {
+        // User data structure might be different or user is null
+        console.warn('User data not found in /api/me response.');
+        // Fallback to localStorage if user object is missing
+        if (displayNameInput && localStorage.getItem('displayName')) {
+          displayNameInput.value = localStorage.getItem('displayName');
         }
       }
     }
   } catch (error) {
-    console.error('Error checking login status:', error);
+    console.error('Error fetching user data:', error);
+    // Fallback to localStorage on error
+    if (displayNameInput && localStorage.getItem('displayName')) {
+      displayNameInput.value = localStorage.getItem('displayName');
+    }
   }
 
-  const myAccountForm = document.getElementById('myAccountForm');
-  const displayNameInput = document.getElementById('displayNameInput');
-  const profilePictureUpload = document.getElementById('profilePictureUpload');
-  const profilePicturePreview = document.getElementById('profilePicturePreview');
-  // const saveProfileButton = document.getElementById('saveProfileButton'); // The form's submit event is used
-
-  // Load saved display name from localStorage on page load
-  if (displayNameInput && localStorage.getItem('displayName')) {
-    displayNameInput.value = localStorage.getItem('displayName');
-  }
-
-  // Preview profile picture
+  // Preview new profile picture selection
   if (profilePictureUpload && profilePicturePreview) {
     profilePictureUpload.addEventListener('change', function() {
       const file = this.files[0];
@@ -63,50 +80,76 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
 
       // --- Backend Integration (Conceptual) ---
-      // The original js/onboard.js had a fetch call to /api/onboard.
-      // For a "My Account" update, this would typically go to a different endpoint, e.g., /api/profile.
-      // This part is commented out as it requires backend implementation.
+      // Save display name to localStorage as a fallback or for immediate UI update
+      if (displayNameInput) {
+        localStorage.setItem('displayName', displayNameInput.value);
+      }
 
-      /*
-      const formData = new FormData(myAccountForm); // Gathers display_name and profile_pic file
-      // If you only want to send the display name and not always the picture:
-      // const formData = new FormData();
-      // formData.append('display_name', displayNameInput.value);
-      // if (profilePictureUpload.files[0]) {
-      //   formData.append('profile_pic', profilePictureUpload.files[0]);
-      // }
+      const formData = new FormData();
+      formData.append('display_name', displayNameInput.value);
+
+      // Only append profile picture if a new one has been selected
+      if (profilePictureUpload.files && profilePictureUpload.files[0]) {
+        formData.append('profile_pic', profilePictureUpload.files[0]);
+      }
+      // If no new file is selected, the backend should ideally not change the existing picture.
+      // If the backend requires 'profile_pic' field, and removing it means "delete picture",
+      // then this logic might need adjustment based on backend API specifics.
 
       try {
-        const response = await fetch('/api/profile', { // Assuming a new endpoint like /api/profile
-          method: 'POST', // Or PUT
+        const response = await fetch('/api/profile', {
+          method: 'POST', // Or 'PUT' if your API uses PUT for updates
           credentials: 'include',
-          body: formData, // FormData handles multipart/form-data for file uploads
+          body: formData, // FormData handles multipart/form-data header automatically
         });
 
         if (!response.ok) {
-          const errorData = await response.json().catch(() => ({ error: 'Failed to save profile. Server error.' }));
-          throw new Error(errorData.error || 'Failed to save profile.');
+          const errorData = await response.json().catch(() => ({ message: 'Failed to save profile. Server error.' }));
+          throw new Error(errorData.message || `Server responded with ${response.status}`);
         }
 
         const result = await response.json();
-        alert('Profile saved successfully!'); // Or update UI more subtly
-        // Optionally, update display name in header if it shows there
-        // if (window.loadHeader) window.loadHeader();
+        alert('Profile saved successfully!');
+
+        // Optionally, update display name and avatar in header if it's displayed there
+        // This might require a function to re-render header parts or a full reload of header logic
+        if (typeof loadHeader === 'function') {
+          // This assumes loadHeader() is globally available and can refresh the header.
+          // However, main.js injects header HTML directly. We might need a more targeted update.
+          // For now, a page reload might be the simplest way if main.js handles header on load.
+          // Or, update the user object in main.js if it's accessible and re-render.
+        }
+        // If 'me' object from main.js was global or accessible, update it:
+        // if (window.me && result.user) { // Assuming result.user contains the updated user
+        //   window.me.display_name = result.user.display_name;
+        //   window.me.profile_pic = result.user.profile_pic;
+        //   // Then trigger a re-render of relevant header parts.
+        // }
+
+        // Refresh header information by re-calling the relevant part of main.js or a dedicated function
+        // For simplicity, if main.js re-evaluates on DOMContentLoaded or similar,
+        // parts of its logic for header might need to be callable.
+        // A simple way to see changes in header is to reload, but that's not ideal UX.
+        // Let's assume for now `main.js` will be updated to handle this.
+        // If `main.js` has a function to update header user info, call it here.
+        // e.g., if main.js exposes `updateUserInHeader(newUserObject)`
+        if (result.user) {
+            // If main.js sets a global `me` object that it uses to render the header:
+            if (window.me) {
+                window.me.display_name = result.user.display_name;
+                window.me.profile_pic = result.user.profile_pic;
+            }
+            // Trigger a custom event that main.js can listen for to update the header
+            document.dispatchEvent(new CustomEvent('userProfileUpdated', { detail: result.user }));
+        }
+
+
       } catch (error) {
         console.error('Error saving profile:', error);
         alert(`Error: ${error.message}`);
       }
-      */
 
-      // For now, just a simple confirmation that local save happened.
-      // Remove the alert if it's annoying during development.
-      if (displayNameInput.value) {
-        alert('Profile settings (display name locally, picture previewed) processed!');
-      } else {
-        alert('Please enter a display name.');
-      }
-
-      // Potentially redirect or give other feedback
+      // Potentially redirect or give other feedback (removed the old local save alert)
       // For example, if this page was part of an initial mandatory setup:
       // window.location.href = '/'; // Redirect to homepage
     });

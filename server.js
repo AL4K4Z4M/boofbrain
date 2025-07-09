@@ -166,19 +166,109 @@ app.get('/api/me', verifyToken, async (req, res) => {
   }
 });
 
-// Onboarding
+// Update Profile
+app.post('/api/profile', verifyToken, upload.single('profile_pic'), async (req, res) => {
+  const { display_name } = req.body;
+  const userId = req.user.id;
+  let picPath = null;
+
+  if (req.file) {
+    picPath = `uploads/${req.file.filename}`;
+  }
+
+  if (!display_name && !picPath) {
+    return res.status(400).json({ message: 'No profile information provided to update.' });
+  }
+
+  try {
+    let oldProfilePic = null;
+    if (picPath) { // If a new picture is uploaded, get the old one for potential deletion
+        const [userRows] = await db.execute('SELECT profile_pic FROM users WHERE id = ?', [userId]);
+        if (userRows.length > 0 && userRows[0].profile_pic) {
+            oldProfilePic = userRows[0].profile_pic;
+        }
+    }
+
+    // Construct query dynamically based on what's provided
+    const fieldsToUpdate = [];
+    const values = [];
+    if (display_name) {
+      fieldsToUpdate.push('display_name = ?');
+      values.push(display_name);
+    }
+    if (picPath) {
+      fieldsToUpdate.push('profile_pic = ?');
+      values.push(picPath);
+    }
+    values.push(userId); // For the WHERE clause
+
+    if (fieldsToUpdate.length === 0) {
+        // This case should ideally be caught by the initial check, but as a safeguard:
+        return res.status(400).json({ message: "No updatable fields provided." });
+    }
+
+    const sql = `UPDATE users SET ${fieldsToUpdate.join(', ')} WHERE id = ?`;
+    await db.execute(sql, values);
+
+    // If a new profile picture was uploaded and an old one existed, delete the old one from the filesystem
+    // This is a simple deletion, doesn't handle errors like file not found gracefully for brevity
+    if (oldProfilePic && picPath && oldProfilePic !== picPath) {
+        const fs = require('fs').promises;
+        try {
+            await fs.unlink(path.join(__dirname, oldProfilePic));
+            console.log(`Old profile picture ${oldProfilePic} deleted.`);
+        } catch (fsErr) {
+            // Log error but don't fail the request, as profile update in DB was successful
+            console.error(`Failed to delete old profile picture ${oldProfilePic}:`, fsErr);
+        }
+    }
+
+    // Fetch the updated user information to send back
+    const [updatedUserRows] = await db.execute(
+      'SELECT id, username, display_name, profile_pic FROM users WHERE id = ?',
+      [userId]
+    );
+
+    if (updatedUserRows.length === 0) {
+        // Should not happen if update was successful, but good to check
+        return res.status(404).json({ message: "User not found after update." });
+    }
+
+    res.status(200).json({ message: 'Profile updated successfully', user: updatedUserRows[0] });
+  } catch (err) {
+    console.error('Error updating profile:', err);
+    // If the uploaded file caused an error but wasn't processed, try to delete it.
+    if (picPath && err.code !== 'ENOENT') { // Avoid trying to delete if fs.unlink caused the error
+        const fs = require('fs').promises;
+        fs.unlink(path.join(__dirname, picPath)).catch(fsErr => console.error(`Cleanup failed for ${picPath}:`, fsErr));
+    }
+    res.status(500).json({ message: 'Server error while updating profile.' });
+  }
+});
+
+
+// Onboarding (This might be deprecated or changed if /api/profile handles all profile updates)
+// For now, let's assume it's still used for a specific first-time setup.
+// If it's fully replaced by /api/profile, this route could be removed or modified.
 app.post('/api/onboard', verifyToken, upload.single('profile_pic'), async (req, res) => {
   const { display_name } = req.body;
   const picPath = req.file ? `uploads/${req.file.filename}` : null;
-  if (!display_name || !picPath) return res.status(400).send('Name and picture required');
+  // Original onboarding required both. We can keep this strict for "onboarding"
+  // or relax it if /api/profile is the new standard.
+  if (!display_name || !picPath) return res.status(400).send('Display name and profile picture are required for onboarding.');
   try {
     await db.execute(
-      'UPDATE users SET display_name = ?, profile_pic = ? WHERE id = ?',
+      'UPDATE users SET display_name = ?, profile_pic = ?, onboarded = 1 WHERE id = ?', // Assuming an 'onboarded' flag
       [display_name, picPath, req.user.id]
     );
-    res.sendStatus(204);
+    // Fetch the updated user to potentially return, similar to /api/profile
+     const [userRows] = await db.execute(
+      'SELECT id, username, display_name, profile_pic FROM users WHERE id = ?',
+      [req.user.id]
+    );
+    res.status(200).json({ message: 'Onboarding complete', user: userRows[0] });
   } catch (err) {
-    console.error(err);
+    console.error('Error during onboarding:', err);
     res.sendStatus(500);
   }
 });
