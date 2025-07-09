@@ -5,27 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>boofbrain — Can it run DOOM?</title>
   <link rel="stylesheet" href="css/style.css" />
+  <!-- js-dos style sheet -->
+  <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
   <style>
     .content-container {
       text-align: center;
       padding: calc(var(--spacing) * 2) var(--spacing);
-      min-height: 50vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      /* min-height: 50vh; Removed for js-dos container */
+      /* display: flex; Removed for js-dos container */
+      /* flex-direction: column; Removed for js-dos container */
+      /* justify-content: center; Removed for js-dos container */
+      /* align-items: center; Removed for js-dos container */
     }
-    .doom-answer {
-      font-family: var(--font-brand);
-      font-size: clamp(2rem, 8vw, 4rem);
-      color: var(--color-accent);
-      margin-bottom: var(--spacing);
-    }
-    .doom-subtext {
-      font-size: 1.2rem;
-      color: var(--color-text-muted);
-      max-width: 600px;
-    }
+    /* Removed .doom-answer and .doom-subtext as they are no longer used */
     .back-link {
       display: inline-block;
       margin-top: calc(var(--spacing) * 2);
@@ -40,6 +32,11 @@
     .back-link:hover {
       background-color: var(--color-secondary);
     }
+    #jsdos-container { /* Style for the js-dos container itself */
+        width: 640px; /* Default DOS width */
+        height: 400px; /* Default DOS height */
+        margin: 0 auto var(--spacing); /* Center it and add some bottom margin */
+    }
   </style>
 </head>
 <body>
@@ -48,17 +45,43 @@
 
   <main class="content-wrapper content-container">
     <h1 class="section-title">The Eternal Question: Can it run DOOM?</h1>
-    <p class="doom-answer">YES!</p>
-    <p class="doom-subtext">
-      (Probably. This is a placeholder page. Actual DOOM integration would be a much larger project!)
-    </p>
-    <img src="images/no.gif" alt="DOOM guy" style="width:100px; height:auto; margin-top:1rem;" />
-    <a href="community.html" class="back-link">Back to Suggestions</a>
+
+    <div id="jsdos-container">
+      <p style="text-align:center; padding-top: 20px;">Loading DOOM...</p>
+    </div>
+
+    <a href="community.html" class="back-link">Back to Community</a>
   </main>
 
   <!-- FOOTER INJECTION POINT -->
   <div id="footer-placeholder"></div>
 
   <script src="js/main.js"></script>
+  <!-- js-dos -->
+  <script src="https://v8.js-dos.com/latest/js-dos.js"></script>
+  <script>
+    const jsdosContainer = document.getElementById("jsdos-container");
+    if (jsdosContainer) {
+      Dos(jsdosContainer, {
+        url: "doom.jsdos", // Ensure doom.jsdos is in the same directory or provide correct path
+        // Optional: you can specify an 'onprogress' handler to update loading status
+        // onprogress: (stage, total, loaded) => {
+        //   console.log('Loading... stage: ' + stage + ', loaded: ' + loaded + '/' + total);
+        //   jsdosContainer.innerHTML = `<p>Loading ${stage}: ${ Math.round(loaded/total * 100) }%</p>`;
+        // }
+      }).then(ci => {
+        console.log("js-dos instance started with bundle: doom.jsdos");
+        // Optionally hide any custom loading message if the canvas is now active
+        // jsdosContainer.innerHTML = ""; // Clear loading message if needed, but js-dos usually takes over the div
+      }).catch(error => {
+        console.error("Error starting js-dos:", error);
+        if (jsdosContainer) {
+          jsdosContainer.innerHTML = "<p style='color:red; text-align:center; padding-top: 20px;'>Could not load Doom. Please ensure 'doom.jsdos' is present and valid. Check console for details.</p>";
+        }
+      });
+    } else {
+      console.error("Could not find the jsdos-container element.");
+    }
+  </script>
 </body>
 </html>
