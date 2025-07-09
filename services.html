@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Services</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Styles for service cards, can be moved to style.css later if preferred */
+    .services-container {
+      padding: var(--spacing) 0;
+    }
+    #services-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing);
+    }
+    .service-card {
+      background: var(--color-white);
+      padding: var(--spacing);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform var(--transition), box-shadow var(--transition);
+      text-decoration: none;
+      color: var(--color-text);
+    }
+    .service-card.clickable:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    .service-card h3 {
+      font-family: var(--font-nav);
+      margin-bottom: calc(var(--spacing) / 2);
+      color: var(--color-secondary);
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing);
+      color: var(--color-text-muted);
+    }
+    .service-attribution {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-align: right;
+    }
+    .hoster-name {
+      font-weight: bold;
+    }
+    .no-services {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--color-text-muted);
+      padding: calc(var(--spacing) * 2);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <main class="content-wrapper services-container">
+    <h1 class="section-title">Services</h1>
+    <p style="text-align: center; margin-bottom: var(--spacing-double, 2rem);">Here are some services hosted by boofbrain!</p>
+    <div id="services-list">
+      <!-- Services will be loaded here by js/services.js -->
+      <p class="no-services">Loading services...</p>
+    </div>
+  </main>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/servicesData.js"></script> <!-- Must be before services.js -->
+  <script type="module" src="js/services.js"></script>
+</body>
+</html>
