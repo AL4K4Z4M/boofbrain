@@ -226,6 +226,77 @@ header {
   }
 }
 
+/* Doom Page Specific Styles */
+body.doom-page {
+  background-color: #1a0000; /* Dark red/brown background */
+  color: #ffcc00; /* Hellish yellow/orange text */
+  font-family: 'VT323', monospace; /* Pixelated font */
+  /* Override default body padding if header/footer are hidden */
+  padding-top: 0 !important;
+}
+
+.doom-page .content-container {
+  text-align: center;
+  padding: var(--spacing) var(--spacing); /* Adjusted padding */
+  width: 100%;
+  max-width: 100%; /* Ensure it can go full width */
+}
+
+/* Apply to #jsdos-container specifically within .doom-page if it's a common ID */
+/* This selector is intentionally specific to override potential global #jsdos-container styles if they existed */
+.doom-page #jsdos-container {
+  width: 90vw; /* Responsive width */
+  height: 75vh; /* Responsive height */
+  max-width: 1280px; /* Max width for very large screens */
+  max-height: 720px; /* Max height for very large screens */
+  margin: var(--spacing) auto;
+  border: 3px solid #ff6600; /* Fiery orange border */
+  box-shadow: 0 0 20px #ff6600; /* Glowing effect */
+}
+
+.doom-page .section-title {
+  color: #ff6600; /* Fiery orange for titles */
+  font-size: 3rem; /* Larger title */
+  text-shadow: 2px 2px #000;
+  /* Override general .section-title styles if necessary */
+  margin-bottom: var(--spacing); /* Adjusted margin for Doom page */
+}
+
+.doom-page .back-link {
+  display: inline-block;
+  margin-top: calc(var(--spacing) * 1.5);
+  padding: calc(var(--spacing)*0.8) calc(var(--spacing)*1.5);
+  background-color: #660000; /* Darker red */
+  color: #ffcc00;
+  text-decoration: none;
+  border: 2px solid #ffcc00;
+  border-radius: 0; /* Sharp edges */
+  font-family: 'VT323', monospace;
+  transition: background-color var(--transition), color var(--transition);
+  font-size: 1.2rem;
+}
+
+.doom-page .back-link:hover {
+  background-color: #ffcc00;
+  color: #660000;
+}
+
+/* Hide header and footer on doom page for full immersion */
+.doom-page #header-placeholder,
+.doom-page #footer-placeholder {
+    display: none !important;
+}
+
+/* Ensure main content takes up full viewport height if header/footer are hidden */
+.doom-page main.content-wrapper.content-container { /* More specific selector */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    /* padding-top already handled by body.doom-page or specific container */
+    /* padding-bottom: 0; */ /* May not be needed if footer is gone */
+}
+
 /* Hero section */
 .hero {
   background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));

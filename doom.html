@@ -7,50 +7,21 @@
   <link rel="stylesheet" href="css/style.css" />
   <!-- js-dos style sheet -->
   <link rel="stylesheet" href="https://v8.js-dos.com/latest/js-dos.css">
-  <style>
-    .content-container {
-      text-align: center;
-      padding: calc(var(--spacing) * 2) var(--spacing);
-      /* min-height: 50vh; Removed for js-dos container */
-      /* display: flex; Removed for js-dos container */
-      /* flex-direction: column; Removed for js-dos container */
-      /* justify-content: center; Removed for js-dos container */
-      /* align-items: center; Removed for js-dos container */
-    }
-    /* Removed .doom-answer and .doom-subtext as they are no longer used */
-    .back-link {
-      display: inline-block;
-      margin-top: calc(var(--spacing) * 2);
-      padding: var(--spacing);
-      background-color: var(--color-primary);
-      color: var(--color-white);
-      text-decoration: none;
-      border-radius: var(--radius);
-      font-family: var(--font-tagline);
-      transition: background-color var(--transition);
-    }
-    .back-link:hover {
-      background-color: var(--color-secondary);
-    }
-    #jsdos-container { /* Style for the js-dos container itself */
-        width: 640px; /* Default DOS width */
-        height: 400px; /* Default DOS height */
-        margin: 0 auto var(--spacing); /* Center it and add some bottom margin */
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <!-- Doom-specific styles moved to css/style.css -->
 </head>
-<body>
+<body class="doom-page">
   <!-- HEADER INJECTION POINT -->
   <div id="header-placeholder"></div>
 
   <main class="content-wrapper content-container">
-    <h1 class="section-title">The Eternal Question: Can it run DOOM?</h1>
+    <h1 class="section-title">CAN IT RUN DOOM?</h1>
 
     <div id="jsdos-container">
-      <p style="text-align:center; padding-top: 20px;">Loading DOOM...</p>
+      <p style="text-align:center; padding-top: 20px; color: #ffcc00;">LOADING DOOM...</p>
     </div>
 
-    <a href="community.html" class="back-link">Back to Community</a>
+    <a href="community.html" class="back-link">BACK TO REALITY</a>
   </main>
 
   <!-- FOOTER INJECTION POINT -->
