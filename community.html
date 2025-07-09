@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Community Suggestions</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Styles for suggestion cards, can be moved to style.css later if preferred */
+    .suggestions-container {
+      padding: var(--spacing) 0;
+    }
+    #suggestions-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing);
+    }
+    .suggestion-card {
+      background: var(--color-white);
+      padding: var(--spacing);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform var(--transition), box-shadow var(--transition);
+      text-decoration: none;
+      color: var(--color-text);
+    }
+    .suggestion-card.clickable:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    .suggestion-card h3 {
+      font-family: var(--font-nav);
+      margin-bottom: calc(var(--spacing) / 2);
+      color: var(--color-secondary);
+    }
+    .suggestion-card p {
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing);
+      color: var(--color-text-muted);
+    }
+    .suggestion-attribution {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-align: right;
+    }
+    .suggester-name {
+      font-weight: bold;
+    }
+    .no-suggestions {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--color-text-muted);
+      padding: calc(var(--spacing) * 2);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <main class="content-wrapper suggestions-container">
+    <h1 class="section-title">Community Suggestions</h1>
+    <p style="text-align: center; margin-bottom: var(--spacing-double, 2rem);">Here are some ideas and pages suggested by the boofbrain community!</p>
+    <div id="suggestions-list">
+      <!-- Suggestions will be loaded here by js/community.js -->
+      <p class="no-suggestions">Loading suggestions...</p>
+    </div>
+  </main>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/suggestions.js"></script> <!-- Must be before community.js -->
+  <script src="js/community.js"></script>
+</body>
+</html>

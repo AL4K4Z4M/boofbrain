@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Rock, Paper, Scissors</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .rps-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: var(--spacing);
+      background: var(--color-white);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .rps-title {
+      font-family: var(--font-brand);
+      color: var(--color-secondary);
+      margin-bottom: var(--spacing);
+    }
+    .score-board {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: var(--spacing);
+      font-size: 1.2rem;
+    }
+    .score-board span {
+      font-weight: bold;
+    }
+    .hands-display {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: calc(var(--spacing) * 2) 0;
+      font-size: 3rem;
+    }
+    .hand {
+      padding: var(--spacing);
+      border-radius: 8px;
+      background: var(--color-feature-bg);
+      min-width: 80px; /* Ensure consistent width */
+      min-height: 80px; /* Ensure consistent height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .choices {
+      margin-bottom: var(--spacing);
+    }
+    .choice-btn {
+      font-family: var(--font-tagline);
+      background: var(--color-primary);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius);
+      padding: var(--spacing) calc(var(--spacing) * 1.5);
+      margin: calc(var(--spacing) / 2);
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      font-size: 1.2rem;
+    }
+    .choice-btn:hover {
+      background: var(--color-secondary);
+      transform: translateY(-2px);
+    }
+    #reset-btn {
+      background: var(--color-accent);
+      color: var(--color-white);
+      border: none;
+      border-radius: var(--radius);
+      padding: var(--spacing);
+      cursor: pointer;
+      transition: background var(--transition);
+      margin-top: var(--spacing);
+    }
+    #reset-btn:hover {
+      background: var(--color-text);
+    }
+    #result-message {
+      margin-top: var(--spacing);
+      font-size: 1.1rem;
+      min-height: 1.5em; /* Prevent layout shift */
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <main class="content-wrapper">
+    <div class="rps-container">
+      <h1 class="rps-title">Rock, Paper, Scissors</h1>
+
+      <div class="score-board">
+        <p>Player: <span id="player-score">0</span></p>
+        <p>Computer: <span id="computer-score">0</span></p>
+      </div>
+
+      <div class="hands-display">
+        <div class="hand" id="player-hand">?</div>
+        <div>vs</div>
+        <div class="hand" id="computer-hand">?</div>
+      </div>
+
+      <p id="result-message">Make your move!</p>
+
+      <div class="choices">
+        <button class="choice-btn" data-choice="rock">✊ Rock</button>
+        <button class="choice-btn" data-choice="paper">✋ Paper</button>
+        <button class="choice-btn" data-choice="scissors">✌️ Scissors</button>
+      </div>
+
+      <button id="reset-btn">Reset Game</button>
+    </div>
+  </main>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/rps.js"></script>
+</body>
+</html>

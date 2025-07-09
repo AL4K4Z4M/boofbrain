@@ -556,3 +556,56 @@ footer {
   border-radius: 6px;
   resize: none;
 }
+
+/* Chat Page Specific Styles */
+.chat-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  height: 70vh; /* Consider if this should be max-height or adjusted based on content */
+}
+/* Note: .messages and .message are used by chat.js for the live chat window */
+.chat-container .messages { /* Scoped to chat-container */
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+.chat-container .message { /* Scoped to chat-container */
+  margin-bottom: 0.75rem;
+  word-wrap: break-word;
+}
+.chat-container .message .author {
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+.chat-form { /* Used by chat.html */
+  display: flex;
+  border-top: 1px solid var(--divider);
+}
+.chat-form input {
+  flex: 1;
+  border: none;
+  padding: var(--spacing);
+  font-size: 1rem;
+  background-color: transparent; /* Ensure it blends with chat-container background */
+}
+.chat-form input:focus {
+  outline: none; /* Simple focus style, can be enhanced */
+}
+.chat-form button {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  padding: var(--spacing) 1.5rem;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.chat-form button:hover {
+  background: var(--color-secondary);
+}
