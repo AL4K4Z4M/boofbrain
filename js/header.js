@@ -48,7 +48,7 @@ async function loadHeader() {
     `;
 
     // Inject the HTML into the header element
-    headerElement.innerHTML = headerHTML;
+    // headerElement.innerHTML = headerHTML; // Commented out to prevent conflict with js/main.js
 
     // Check for logout button (if it's part of header.js responsibility)
     // This part assumes logout functionality might also be in header.js or main.js
