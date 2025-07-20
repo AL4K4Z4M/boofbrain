@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>boofbrain — Plate Traits</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .review-system-container {
+      padding: var(--spacing-double) 0;
+    }
+    .review-form-container {
+      background: var(--color-white);
+      padding: var(--spacing-double);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      margin-bottom: var(--spacing-double);
+    }
+    .review-form-container h2 {
+      font-family: var(--font-nav);
+      margin-bottom: var(--spacing);
+      color: var(--color-secondary);
+    }
+    .star-rating {
+      margin-bottom: var(--spacing);
+    }
+    .star-rating .star {
+      font-size: 2rem;
+      color: #ccc;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+    .star-rating .star:hover,
+    .star-rating .star.selected {
+      color: var(--color-primary);
+    }
+    .reviews-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing);
+    }
+    .review-card {
+      background: var(--color-white);
+      padding: var(--spacing);
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .review-card h3 {
+      font-family: var(--font-nav);
+      color: var(--color-text);
+      margin-bottom: calc(var(--spacing) / 2);
+    }
+    .review-card .review-rating {
+      color: var(--color-primary);
+      margin-bottom: var(--spacing);
+    }
+    .review-card p {
+      color: var(--color-text-muted);
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER INJECTION POINT -->
+  <div id="header-placeholder"></div>
+
+  <main class="content-wrapper review-system-container">
+    <h1 class="section-title">Plate Traits</h1>
+    <p style="text-align: center; margin-bottom: var(--spacing-double);">Review and rate different plate traits.</p>
+
+    <div class="review-form-container">
+      <h2>Submit Your Review</h2>
+      <form id="review-form">
+        <div class="form-group">
+          <label for="trait-name">Trait Name</label>
+          <input type="text" id="trait-name" name="trait-name" required>
+        </div>
+        <div class="form-group">
+          <label>Rating</label>
+          <div class="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+          </div>
+          <input type="hidden" id="rating" name="rating" required>
+        </div>
+        <div class="form-group">
+          <label for="review-text">Review</label>
+          <textarea id="review-text" name="review-text" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="submit-button">Submit Review</button>
+      </form>
+    </div>
+
+    <div class="reviews-list">
+      <h2 class="section-title">Recent Reviews</h2>
+      <div class="review-card">
+        <h3>Heavy Hitter</h3>
+        <div class="review-rating">★★★★☆</div>
+        <p>"This trait is amazing! It really helps in the late game."</p>
+      </div>
+      <div class="review-card">
+        <h3>Speedster</h3>
+        <div class="review-rating">★★★☆☆</div>
+        <p>"Good for early game, but falls off later."</p>
+      </div>
+      <div class="review-card">
+        <h3>Glass Cannon</h3>
+        <div class="review-rating">★★☆☆☆</div>
+        <p>"High risk, high reward. Not for me."</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER INJECTION POINT -->
+  <div id="footer-placeholder"></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Basic star rating functionality
+    const stars = document.querySelectorAll('.star-rating .star');
+    const ratingInput = document.getElementById('rating');
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const value = star.getAttribute('data-value');
+        ratingInput.value = value;
+        stars.forEach(s => {
+          s.classList.toggle('selected', s.getAttribute('data-value') <= value);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
