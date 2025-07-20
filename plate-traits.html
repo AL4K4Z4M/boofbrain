@@ -12,80 +12,105 @@
     .review-form-container {
       background: var(--color-white);
       padding: var(--spacing-double);
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
       margin-bottom: var(--spacing-double);
     }
     .review-form-container h2 {
-      font-family: var(--font-nav);
-      margin-bottom: var(--spacing);
+      font-family: var(--font-brand);
+      text-align: center;
+      margin-bottom: var(--spacing-double);
       color: var(--color-secondary);
     }
+    .form-group {
+        margin-bottom: var(--spacing);
+    }
     .star-rating {
-      margin-bottom: var(--spacing);
+      display: flex;
+      justify-content: center;
+      margin-bottom: var(--spacing-double);
     }
     .star-rating .star {
-      font-size: 2rem;
+      font-size: 2.5rem;
       color: #ccc;
       cursor: pointer;
-      transition: color var(--transition);
+      transition: color 0.2s, transform 0.2s;
     }
-    .star-rating .star:hover,
+    .star-rating .star:hover {
+      transform: scale(1.2);
+    }
     .star-rating .star.selected {
       color: var(--color-primary);
     }
     .reviews-list {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--spacing);
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--spacing-double);
     }
     .review-card {
       background: var(--color-white);
-      padding: var(--spacing);
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      padding: var(--spacing-double);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
     }
     .review-card h3 {
-      font-family: var(--font-nav);
-      color: var(--color-text);
-      margin-bottom: calc(var(--spacing) / 2);
+      font-family: var(--font-brand);
+      color: var(--color-secondary);
+      margin-bottom: var(--spacing);
     }
     .review-card .review-rating {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing);
       color: var(--color-primary);
       margin-bottom: var(--spacing);
+    }
+    .review-card .review-rating span:last-child {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
     }
     .review-card p {
       color: var(--color-text-muted);
     }
     .tag-group {
-      margin-bottom: var(--spacing);
+      margin-bottom: var(--spacing-double);
     }
     .tag-group h4 {
       font-family: var(--font-nav);
       color: var(--color-text);
-      margin-bottom: calc(var(--spacing) / 2);
+      margin-bottom: var(--spacing);
     }
     .tag-container {
       display: flex;
       flex-wrap: wrap;
-      gap: calc(var(--spacing) / 2);
+      gap: var(--spacing);
     }
     .tag {
-      background-color: #eee;
-      padding: calc(var(--spacing) / 2) var(--spacing);
-      border-radius: 20px;
+      background-color: var(--color-feature-bg);
+      padding: var(--spacing) var(--spacing-double);
+      border-radius: 50px;
       cursor: pointer;
-      transition: background-color var(--transition), color var(--transition);
+      transition: background-color var(--transition), color var(--transition), transform 0.2s;
+      font-family: var(--font-nav);
+    }
+    .tag:hover {
+        transform: translateY(-2px);
     }
     .tag.positive {
-      border-left: 3px solid var(--color-primary);
+      border-bottom: 3px solid var(--color-primary);
     }
     .tag.negative {
-      border-left: 3px solid var(--color-accent);
+      border-bottom: 3px solid var(--color-accent);
     }
     .tag.selected {
       background-color: var(--color-secondary);
       color: var(--color-white);
+      font-weight: bold;
     }
   </style>
 </head>
