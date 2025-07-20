@@ -57,6 +57,36 @@
     .review-card p {
       color: var(--color-text-muted);
     }
+    .tag-group {
+      margin-bottom: var(--spacing);
+    }
+    .tag-group h4 {
+      font-family: var(--font-nav);
+      color: var(--color-text);
+      margin-bottom: calc(var(--spacing) / 2);
+    }
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(var(--spacing) / 2);
+    }
+    .tag {
+      background-color: #eee;
+      padding: calc(var(--spacing) / 2) var(--spacing);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition);
+    }
+    .tag.positive {
+      border-left: 3px solid var(--color-primary);
+    }
+    .tag.negative {
+      border-left: 3px solid var(--color-accent);
+    }
+    .tag.selected {
+      background-color: var(--color-secondary);
+      color: var(--color-white);
+    }
   </style>
 </head>
 <body>
@@ -64,11 +94,11 @@
   <div id="header-placeholder"></div>
 
   <main class="content-wrapper review-system-container">
-    <h1 class="section-title">Plate Traits</h1>
-    <p style="text-align: center; margin-bottom: var(--spacing-double);">Review and rate different plate traits.</p>
+    <h1 class="section-title">Rate a Plate</h1>
+    <p style="text-align: center; margin-bottom: var(--spacing-double);">Help us build a database of license plate traits.</p>
 
     <div class="review-form-container">
-      <h2>Submit Your Review</h2>
+      <h2>Submit a Review</h2>
       <form id="review-form">
         <div class="form-group">
           <label for="state">State</label>
@@ -130,21 +160,25 @@
           <label for="plate-number">License Plate Number</label>
           <input type="text" id="plate-number" name="plate-number" required>
         </div>
-        <div class="form-group">
-          <label>Rating</label>
-          <div class="star-rating">
-            <span class="star" data-value="1">&#9733;</span>
-            <span class="star" data-value="2">&#9733;</span>
-            <span class="star" data-value="3">&#9733;</span>
-            <span class="star" data-value="4">&#9733;</span>
-            <span class="star" data-value="5">&#9733;</span>
+        <div class="tag-group">
+          <h4>Positive Traits</h4>
+          <div class="tag-container">
+            <div class="tag positive" data-trait="aesthetics">Good Aesthetics</div>
+            <div class="tag positive" data-trait="readability">Easy to Read</div>
+            <div class="tag positive" data-trait="clever">Clever Design</div>
+            <div class="tag positive" data-trait="funny">Funny</div>
           </div>
-          <input type="hidden" id="rating" name="rating" required>
         </div>
-        <div class="form-group">
-          <label for="review-text">Review</label>
-          <textarea id="review-text" name="review-text" rows="4" required></textarea>
+        <div class="tag-group">
+          <h4>Negative Traits</h4>
+          <div class="tag-container">
+            <div class="tag negative" data-trait="ugly">Ugly Design</div>
+            <div class="tag negative" data-trait="unreadable">Hard to Read</div>
+            <div class="tag negative" data-trait="boring">Boring</div>
+            <div class="tag negative" data-trait="offensive">Offensive</div>
+          </div>
         </div>
+        <input type="hidden" id="selected-tags" name="tags">
         <button type="submit" class="submit-button">Submit Review</button>
       </form>
     </div>
@@ -152,19 +186,12 @@
     <div class="reviews-list">
       <h2 class="section-title">Recent Reviews</h2>
       <div class="review-card">
-        <h3>Heavy Hitter</h3>
-        <div class="review-rating">★★★★☆</div>
-        <p>"This trait is amazing! It really helps in the late game."</p>
+        <h3>CA - 123 ABC</h3>
+        <p>Tags: Good Aesthetics, Easy to Read</p>
       </div>
       <div class="review-card">
-        <h3>Speedster</h3>
-        <div class="review-rating">★★★☆☆</div>
-        <p>"Good for early game, but falls off later."</p>
-      </div>
-      <div class="review-card">
-        <h3>Glass Cannon</h3>
-        <div class="review-rating">★★☆☆☆</div>
-        <p>"High risk, high reward. Not for me."</p>
+        <h3>TX - XYZ 789</h3>
+        <p>Tags: Boring</p>
       </div>
     </div>
   </main>
@@ -174,17 +201,20 @@
 
   <script src="js/main.js"></script>
   <script>
-    // Basic star rating functionality
-    const stars = document.querySelectorAll('.star-rating .star');
-    const ratingInput = document.getElementById('rating');
+    const tags = document.querySelectorAll('.tag');
+    const selectedTagsInput = document.getElementById('selected-tags');
+    let selectedTraits = [];
 
-    stars.forEach(star => {
-      star.addEventListener('click', () => {
-        const value = star.getAttribute('data-value');
-        ratingInput.value = value;
-        stars.forEach(s => {
-          s.classList.toggle('selected', s.getAttribute('data-value') <= value);
-        });
+    tags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        tag.classList.toggle('selected');
+        const trait = tag.getAttribute('data-trait');
+        if (tag.classList.contains('selected')) {
+          selectedTraits.push(trait);
+        } else {
+          selectedTraits = selectedTraits.filter(t => t !== trait);
+        }
+        selectedTagsInput.value = JSON.stringify(selectedTraits);
       });
     });
   </script>
