@@ -160,6 +160,17 @@
           <label for="plate-number">License Plate Number</label>
           <input type="text" id="plate-number" name="plate-number" required>
         </div>
+        <div class="form-group">
+          <label>Rating</label>
+          <div class="star-rating">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+          </div>
+          <input type="hidden" id="rating" name="rating" required>
+        </div>
         <div class="tag-group">
           <h4>Positive Traits</h4>
           <div class="tag-container">
@@ -189,10 +200,18 @@
       <h2 class="section-title">Recent Reviews</h2>
       <div class="review-card">
         <h3>CA - 123 ABC</h3>
+        <div class="review-rating">
+          <span>★★★★☆</span>
+          <span>(15 ratings)</span>
+        </div>
         <p>Tags: Good Aesthetics, Easy to Read</p>
       </div>
       <div class="review-card">
         <h3>TX - XYZ 789</h3>
+        <div class="review-rating">
+          <span>★★☆☆☆</span>
+          <span>(5 ratings)</span>
+        </div>
         <p>Tags: Boring</p>
       </div>
     </div>
@@ -203,6 +222,19 @@
 
   <script src="js/main.js"></script>
   <script>
+    const stars = document.querySelectorAll('.star-rating .star');
+    const ratingInput = document.getElementById('rating');
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const value = star.getAttribute('data-value');
+        ratingInput.value = value;
+        stars.forEach(s => {
+          s.classList.toggle('selected', s.getAttribute('data-value') <= value);
+        });
+      });
+    });
+
     const tags = document.querySelectorAll('.tag');
     const selectedTagsInput = document.getElementById('selected-tags');
     let selectedTraits = [];
