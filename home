@@ -6,6 +6,7 @@
     <title>Boofbrain</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <script>
         tailwind.config = {
@@ -36,11 +37,6 @@
             },
         };
     </script>
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
@@ -155,7 +151,7 @@
             </div>
 
             <!-- Right Sidebar -->
-            <div class="w-96 border-l border-border-light dark:border-border-dark p-6 hidden xl:block space-y-6">
+            <aside class="w-96 border-l border-border-light dark:border-border-dark p-6 hidden xl:block space-y-6">
                 <div class="flex justify-end items-center space-x-4 text-secondary-text-light dark:text-secondary-text-dark">
                     <!-- Dark Mode Toggle Button -->
                     <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-card-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-background-dark">
@@ -175,16 +171,50 @@
                         <span class="font-bold text-text-light dark:text-text-dark">5</span>
                     </div>
                 </div>
-                <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+
+                <section class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark space-y-4">
                     <div class="flex justify-between items-center">
                         <h3 class="font-bold">Gold League</h3>
                         <a class="text-accent-blue font-bold text-sm" href="#">VIEW LEAGUE</a>
                     </div>
-                    <div class="flex items-center mt-4">
+                    <div class="flex items-center">
                         <img alt="Sleeping mascot" class="w-16 h-16 mr-4" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnSUmh7qyzLCjYgjxfUnoSspc7DMQyZPvaBwcXtjG3C0R0ia_fFez2vVbl7E65mmqHV6rkvjmbkiyGBW32O9ETPqjmx78F6_iZ0QCL9pNeYlhzrj7M9VigvlHnKF-AlMLid7mQVbzA3X5q0wULBHuGeEB6e5izOD8grLqz0CxXHDmrK95ZAo8CuprEjOI1dzd_92LiFU6N8CZysjUSeH7Mqc5OlNzxMhFBjnL4wCzDXthNHREA1GOgy4fUxpvast37cHlPQBbt2Vo" />
-                        <p class="text-secondary-text-light dark:text-secondary-text-dark text-sm">Complete a lesson to join this week's leaderboard and compete against other learners</p>
+                        <p class="text-secondary-text-light dark:text-secondary-text-dark text-sm">Complete a lesson to join this week's leaderboard and compete against other learners.</p>
                     </div>
-                </div>
-                <div class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
-                    <div class="flex justify-between items
+                </section>
 
+                <section class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold">Daily Quest</h3>
+                        <span class="text-xs font-bold text-accent-blue">NEW</span>
+                    </div>
+                    <p class="text-secondary-text-light dark:text-secondary-text-dark text-sm">
+                        Finish the "Section 1" lesson with three hearts remaining to earn bonus XP.
+                    </p>
+                    <button class="w-full bg-primary text-white font-bold py-2.5 rounded-lg uppercase shadow-md hover:bg-green-600 transition-colors">Start quest</button>
+                </section>
+
+                <section class="bg-card-light dark:bg-card-dark p-6 rounded-lg border border-border-light dark:border-border-dark">
+                    <h3 class="font-bold">Quick Stats</h3>
+                    <ul class="space-y-3 mt-4">
+                        <li class="flex items-center justify-between text-sm text-secondary-text-light dark:text-secondary-text-dark">
+                            <span>XP Goal</span>
+                            <span class="font-bold text-text-light dark:text-text-dark">300 / 500</span>
+                        </li>
+                        <li class="flex items-center justify-between text-sm text-secondary-text-light dark:text-secondary-text-dark">
+                            <span>Weekly Quests</span>
+                            <span class="font-bold text-text-light dark:text-text-dark">2 / 4</span>
+                        </li>
+                        <li class="flex items-center justify-between text-sm text-secondary-text-light dark:text-secondary-text-dark">
+                            <span>Friends Online</span>
+                            <span class="font-bold text-text-light dark:text-text-dark">3</span>
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -1,1 +1,9 @@
+/* Global styles */
+:root {
+    color-scheme: light dark;
+}
 
+body {
+    font-family: 'Nunito', sans-serif;
+    margin: 0;
+}
