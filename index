@@ -3,98 +3,119 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Boofbrain • User Authentication</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
+    <title>Boofbrain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#58CC02",
+                        "background-light": "#FFFFFF",
+                        "background-dark": "#131F24",
+                        "card-light": "#F7F7F7",
+                        "card-dark": "#1E2A32",
+                        "text-light": "#3C3C3C",
+                        "text-dark": "#FFFFFF",
+                        "secondary-text-light": "#777777",
+                        "secondary-text-dark": "#AFAFAF",
+                        "border-light": "#E5E5E5",
+                        "border-dark": "#394B59",
+                        "accent-blue": "#1CB0F6",
+                    },
+                    fontFamily: {
+                        display: ["Nunito", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "1rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
 </head>
-<body>
-    <div class="page">
-        <header class="page__header">
-            <div class="brand">
-                <span class="brand__badge">bb</span>
-                <span>boofbrain auth</span>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="p-4 sm:p-6">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div class="text-3xl font-bold text-primary">boofbrain</div>
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-card-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:focus:ring-offset-background-dark">
+                    <span class="material-icons" id="darkModeIcon">light_mode</span>
+                </button>
             </div>
-            <nav class="nav-actions">
-                <a class="nav-actions__link" href="#">Product</a>
-                <a class="nav-actions__link" href="#">Docs</a>
-                <button class="nav-actions__button" type="button">Log in</button>
-            </nav>
         </header>
 
-        <main class="hero">
-            <div class="hero__content">
-                <span class="hero__badge">USER ACCOUNTS, DONE RIGHT</span>
-                <h1>Secure identities for curious communities.</h1>
-                <p>
-                    Launch your learning experience with authentication that keeps people safe.
-                    Boofbrain’s user model ships with roles, verification, and safety tooling baked in.
-                </p>
-                <div class="hero__buttons">
-                    <button class="cta-primary" type="button">Get started</button>
-                    <button class="cta-secondary" type="button">I already have an account</button>
-                </div>
-            </div>
+        <!-- Main Content -->
+        <main class="flex-grow flex items-center">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="flex flex-col md:flex-row items-center justify-around gap-8">
+                    <!-- Illustration -->
+                    <div class="w-1/2 md:w-1/3">
+                        <img alt="Boofbrain sloth mascot" class="w-full h-auto" src="https://static.vecteezy.com/system/resources/previews/024/095/028/original/a-cute-sloth-mascot-cartoon-character-sticker-png.png" />
+                    </div>
 
-            <div class="hero__illustration">
-                <img alt="Happy characters welcoming a new user" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=680&q=80" />
-                <div class="hero__card">
-                    <h3>Why people trust Boofbrain</h3>
-                    <ul>
-                        <li>Role aware moderation tools</li>
-                        <li>Instant verification insights</li>
-                        <li>Healthy login habits tracking</li>
-                    </ul>
+                    <!-- Call to Action -->
+                    <div class="text-center md:text-left md:w-1/2">
+                        <h1 class="text-4xl md:text-5xl font-extrabold text-text-light dark:text-text-dark leading-tight">
+                            The free, fun, and effective way to learn about Cannabis.
+                        </h1>
+                        <div class="mt-8 flex flex-col items-center md:items-start space-y-4">
+                            <a href="home.html" class="w-full max-w-xs text-center bg-primary text-white font-bold py-3 px-6 rounded-lg uppercase shadow-lg hover:bg-green-600 transition-colors tracking-wider">
+                                Get Started
+                            </a>
+                            <a href="#" class="w-full max-w-xs text-center bg-transparent border-2 border-border-light dark:border-border-dark text-secondary-text-light dark:text-text-dark font-bold py-3 px-6 rounded-lg uppercase hover:bg-gray-100 dark:hover:bg-card-dark transition-colors tracking-wider">
+                                I Already Have an Account
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <section class="schema-overview">
-            <div class="schema-overview__inner">
-                <div class="schema-overview__heading">
-                    <h2>Users table blueprint</h2>
-                    <span>Designed for growth</span>
-                </div>
-                <div class="schema-pills">
-                    <div class="schema-pill">
-                        <div class="schema-pill__title">Identity & Access</div>
-                        <ul class="schema-pill__fields">
-                            <li>id (PK)</li>
-                            <li>email, username</li>
-                            <li>password_hash</li>
-                        </ul>
-                    </div>
-                    <div class="schema-pill">
-                        <div class="schema-pill__title">Roles & Status</div>
-                        <ul class="schema-pill__fields">
-                            <li>role ENUM</li>
-                            <li>status ENUM</li>
-                            <li>login_count</li>
-                        </ul>
-                    </div>
-                    <div class="schema-pill">
-                        <div class="schema-pill__title">Verification</div>
-                        <ul class="schema-pill__fields">
-                            <li>age_verified + timestamp</li>
-                            <li>terms_agreed + timestamp</li>
-                        </ul>
-                    </div>
-                    <div class="schema-pill">
-                        <div class="schema-pill__title">Security</div>
-                        <ul class="schema-pill__fields">
-                            <li>failed_attempts</li>
-                            <li>last_login_at</li>
-                        </ul>
-                    </div>
-                    <div class="schema-pill">
-                        <div class="schema-pill__title">Timestamps</div>
-                        <ul class="schema-pill__fields">
-                            <li>created_at</li>
-                            <li>updated_at</li>
-                        </ul>
-                    </div>
-                </div>
+        <!-- Footer -->
+        <footer class="p-4 sm:p-6">
+            <div class="max-w-7xl mx-auto text-center text-secondary-text-light dark:text-secondary-text-dark text-sm">
+                &copy; 2024 Boofbrain. All rights reserved.
             </div>
-        </section>
+        </footer>
     </div>
+
+    <script>
+        // Dark Mode Toggle Logic
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeIcon = document.getElementById('darkModeIcon');
+        const html = document.documentElement;
+
+        // On page load, check for saved theme and apply it
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            darkModeIcon.textContent = 'dark_mode';
+        } else {
+            html.classList.remove('dark');
+            darkModeIcon.textContent = 'light_mode';
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                darkModeIcon.textContent = 'light_mode';
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                darkModeIcon.textContent = 'dark_mode';
+            }
+        });
+    </script>
 </body>
 </html>
+
