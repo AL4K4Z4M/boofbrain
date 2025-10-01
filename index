@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Boofbrain • User Authentication</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page">
+        <header class="page__header">
+            <div class="brand">
+                <span class="brand__badge">bb</span>
+                <span>boofbrain auth</span>
+            </div>
+            <nav class="nav-actions">
+                <a class="nav-actions__link" href="#">Product</a>
+                <a class="nav-actions__link" href="#">Docs</a>
+                <button class="nav-actions__button" type="button">Log in</button>
+            </nav>
+        </header>
 
+        <main class="hero">
+            <div class="hero__content">
+                <span class="hero__badge">USER ACCOUNTS, DONE RIGHT</span>
+                <h1>Secure identities for curious communities.</h1>
+                <p>
+                    Launch your learning experience with authentication that keeps people safe.
+                    Boofbrain’s user model ships with roles, verification, and safety tooling baked in.
+                </p>
+                <div class="hero__buttons">
+                    <button class="cta-primary" type="button">Get started</button>
+                    <button class="cta-secondary" type="button">I already have an account</button>
+                </div>
+            </div>
+
+            <div class="hero__illustration">
+                <img alt="Happy characters welcoming a new user" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=680&q=80" />
+                <div class="hero__card">
+                    <h3>Why people trust Boofbrain</h3>
+                    <ul>
+                        <li>Role aware moderation tools</li>
+                        <li>Instant verification insights</li>
+                        <li>Healthy login habits tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <section class="schema-overview">
+            <div class="schema-overview__inner">
+                <div class="schema-overview__heading">
+                    <h2>Users table blueprint</h2>
+                    <span>Designed for growth</span>
+                </div>
+                <div class="schema-pills">
+                    <div class="schema-pill">
+                        <div class="schema-pill__title">Identity & Access</div>
+                        <ul class="schema-pill__fields">
+                            <li>id (PK)</li>
+                            <li>email, username</li>
+                            <li>password_hash</li>
+                        </ul>
+                    </div>
+                    <div class="schema-pill">
+                        <div class="schema-pill__title">Roles & Status</div>
+                        <ul class="schema-pill__fields">
+                            <li>role ENUM</li>
+                            <li>status ENUM</li>
+                            <li>login_count</li>
+                        </ul>
+                    </div>
+                    <div class="schema-pill">
+                        <div class="schema-pill__title">Verification</div>
+                        <ul class="schema-pill__fields">
+                            <li>age_verified + timestamp</li>
+                            <li>terms_agreed + timestamp</li>
+                        </ul>
+                    </div>
+                    <div class="schema-pill">
+                        <div class="schema-pill__title">Security</div>
+                        <ul class="schema-pill__fields">
+                            <li>failed_attempts</li>
+                            <li>last_login_at</li>
+                        </ul>
+                    </div>
+                    <div class="schema-pill">
+                        <div class="schema-pill__title">Timestamps</div>
+                        <ul class="schema-pill__fields">
+                            <li>created_at</li>
+                            <li>updated_at</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
