@@ -69,10 +69,10 @@
                             The free, fun, and effective way to learn about Cannabis.
                         </h1>
                         <div class="mt-8 flex flex-col items-center md:items-start space-y-4">
-                            <a href="/register.html" class="w-full max-w-xs text-center bg-primary text-white font-bold py-3 px-6 rounded-lg uppercase shadow-lg hover:bg-green-600 transition-colors tracking-wider">
+                            <a href="/register" class="w-full max-w-xs text-center bg-primary text-white font-bold py-3 px-6 rounded-lg uppercase shadow-lg hover:bg-green-600 transition-colors tracking-wider">
                                 Get Started
                             </a>
-                            <a href="/login.html" class="w-full max-w-xs text-center bg-transparent border-2 border-border-light dark:border-border-dark text-secondary-text-light dark:text-text-dark font-bold py-3 px-6 rounded-lg uppercase hover:bg-gray-100 dark:hover:bg-card-dark transition-colors tracking-wider">
+                            <a href="/login" class="w-full max-w-xs text-center bg-transparent border-2 border-border-light dark:border-border-dark text-secondary-text-light dark:text-text-dark font-bold py-3 px-6 rounded-lg uppercase hover:bg-gray-100 dark:hover:bg-card-dark transition-colors tracking-wider">
                                 I Already Have an Account
                             </a>
                         </div>

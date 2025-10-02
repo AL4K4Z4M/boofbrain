@@ -78,7 +78,7 @@
                     </ul>
                     <p class="text-sm text-mutedLight dark:text-mutedDark">
                         Need an account?
-                        <a href="/register.html" class="font-semibold text-primary hover:underline">Create one now</a>.
+                        <a href="/register" class="font-semibold text-primary hover:underline">Create one now</a>.
                     </p>
                 </section>
 

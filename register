@@ -78,7 +78,7 @@
                     </ul>
                     <p class="text-sm text-mutedLight dark:text-mutedDark">
                         Already have an account?
-                        <a href="/" class="font-semibold text-primary hover:underline">Log in instead</a>.
+                        <a href="/login" class="font-semibold text-primary hover:underline">Log in instead</a>.
                     </p>
                 </section>
 
