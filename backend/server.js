@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
 
 const express = require('express');
 const bcrypt = require('bcryptjs');
@@ -7,16 +8,26 @@ const mysql = require('mysql2/promise');
 const app = express();
 const port = process.env.PORT || 3001;
 
+const resolveNumericEnv = (value, fallback) => {
+  if (value === undefined || value === null || value === '') {
+    return fallback;
+  }
+
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? numeric : fallback;
+};
+
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
+  port: resolveNumericEnv(process.env.DB_PORT, 3306),
   user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '',
+  password: process.env.DB_PASS ?? process.env.DB_PASSWORD ?? '',
   database: process.env.DB_NAME || 'boofbrain',
   waitForConnections: true,
-  connectionLimit: process.env.DB_CONNECTION_LIMIT
-    ? Number(process.env.DB_CONNECTION_LIMIT)
-    : 10,
+  connectionLimit: resolveNumericEnv(
+    process.env.DB_POOL ?? process.env.DB_CONNECTION_LIMIT,
+    10
+  ),
   queueLimit: 0
 });
 
