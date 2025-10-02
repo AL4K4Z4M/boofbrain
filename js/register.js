@@ -40,6 +40,36 @@ const showMessage = (messageEl, variant, text) => {
     messageEl.classList.remove('hidden');
 };
 
+const API_PORT = '5000';
+
+const getApiBaseUrl = () => {
+    if (typeof window === 'undefined') {
+        return '';
+    }
+
+    const meta = document.querySelector('meta[name="api-base-url"]');
+
+    if (meta && typeof meta.content === 'string' && meta.content.trim() !== '') {
+        return meta.content.replace(/\/$/, '');
+    }
+
+    const { protocol, hostname, port } = window.location;
+
+    if (protocol === 'file:') {
+        return `http://localhost:${API_PORT}`;
+    }
+
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+
+    if (isLocalhost && port && port !== API_PORT) {
+        return `${protocol}//${hostname}:${API_PORT}`;
+    }
+
+    return '';
+};
+
+const buildApiUrl = (path) => `${getApiBaseUrl()}${path}`;
+
 const buildPayload = ({ email, username, password, ageVerified, termsAgreed }) => {
     const payload = {
         password,
@@ -118,7 +148,7 @@ const handleSubmit = async (event) => {
     submitButton.textContent = 'Creating your account...';
 
     try {
-        const response = await fetch('/api/register', {
+        const response = await fetch(buildApiUrl('/api/register'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

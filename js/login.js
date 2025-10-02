@@ -20,6 +20,35 @@ const MESSAGE_VARIANT_CLASSES = {
 };
 
 const TOKEN_STORAGE_KEY = 'boofbrain.authToken';
+const API_PORT = '5000';
+
+const getApiBaseUrl = () => {
+    if (typeof window === 'undefined') {
+        return '';
+    }
+
+    const meta = document.querySelector('meta[name="api-base-url"]');
+
+    if (meta && typeof meta.content === 'string' && meta.content.trim() !== '') {
+        return meta.content.replace(/\/$/, '');
+    }
+
+    const { protocol, hostname, port } = window.location;
+
+    if (protocol === 'file:') {
+        return `http://localhost:${API_PORT}`;
+    }
+
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1';
+
+    if (isLocalhost && port && port !== API_PORT) {
+        return `${protocol}//${hostname}:${API_PORT}`;
+    }
+
+    return '';
+};
+
+const buildApiUrl = (path) => `${getApiBaseUrl()}${path}`;
 
 const clearMessage = (messageEl) => {
     messageEl.classList.add('hidden');
@@ -115,7 +144,7 @@ const handleSubmit = async (event) => {
     submitButton.textContent = 'Signing you in...';
 
     try {
-        const response = await fetch('/api/login', {
+        const response = await fetch(buildApiUrl('/api/login'), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
