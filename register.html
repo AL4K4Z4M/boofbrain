@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boofbrain &mdash; Create an account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#58CC02",
+                        surfaceLight: "#FFFFFF",
+                        surfaceDark: "#1E2A32",
+                        backgroundLight: "#F5FBFF",
+                        backgroundDark: "#0F1A21",
+                        textLight: "#0C1632",
+                        textDark: "#FFFFFF",
+                        mutedLight: "#6C7A89",
+                        mutedDark: "#A6B4C5"
+                    },
+                    fontFamily: {
+                        display: ["Nunito", "sans-serif"],
+                        body: ["Nunito", "sans-serif"]
+                    },
+                    boxShadow: {
+                        card: "0 24px 80px rgba(12, 22, 50, 0.15)"
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="h-full bg-backgroundLight dark:bg-backgroundDark font-body text-textLight dark:text-textDark transition-colors">
+    <div class="min-h-full flex flex-col">
+        <header class="px-6 md:px-10 pt-6">
+            <div class="max-w-4xl mx-auto flex items-center justify-between">
+                <a href="/" class="flex items-center gap-3 font-display font-extrabold text-2xl text-primary">
+                    <span class="material-icons text-[32px] rounded-2xl bg-primary/10 p-2">spa</span>
+                    boofbrain
+                </a>
+                <button id="darkModeToggle" class="rounded-full p-2 bg-surfaceLight/70 dark:bg-surfaceDark/70 shadow hover:shadow-md transition">
+                    <span class="material-icons" id="darkModeIcon">light_mode</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 flex items-center px-6 md:px-10 py-10">
+            <div class="max-w-4xl mx-auto grid lg:grid-cols-2 gap-12 w-full">
+                <section class="space-y-6">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold uppercase text-xs tracking-[0.2em]">
+                        <span class="material-icons text-sm">bolt</span>
+                        Join the community
+                    </span>
+                    <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">
+                        Create your Boofbrain account
+                    </h1>
+                    <p class="text-lg text-mutedLight dark:text-mutedDark">
+                        Learn, grow, and track your cannabis knowledge with courses crafted by experts. Create an account to get started for free.
+                    </p>
+                    <ul class="space-y-4 text-mutedLight dark:text-mutedDark">
+                        <li class="flex items-start gap-3">
+                            <span class="material-icons text-primary">verified</span>
+                            <span>Save your progress across lessons and challenges.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-icons text-primary">group</span>
+                            <span>Connect with learners and share tips with the community.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-icons text-primary">lock</span>
+                            <span>We keep your information secure with industry-standard practices.</span>
+                        </li>
+                    </ul>
+                    <p class="text-sm text-mutedLight dark:text-mutedDark">
+                        Already have an account?
+                        <a href="/" class="font-semibold text-primary hover:underline">Log in instead</a>.
+                    </p>
+                </section>
+
+                <section class="bg-surfaceLight dark:bg-surfaceDark/80 backdrop-blur rounded-3xl shadow-card p-6 md:p-8">
+                    <form id="registrationForm" class="space-y-5">
+                        <div>
+                            <label for="email" class="block text-sm font-semibold mb-1">Email</label>
+                            <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" class="w-full rounded-2xl border border-slate-200/70 dark:border-slate-700 bg-white/80 dark:bg-slate-900/50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition" />
+                            <p class="text-xs text-mutedLight dark:text-mutedDark mt-1">Use a valid email to secure your account. You can also register with just a username.</p>
+                        </div>
+                        <div>
+                            <label for="username" class="block text-sm font-semibold mb-1">Username</label>
+                            <input id="username" name="username" type="text" minlength="3" maxlength="50" autocomplete="username" placeholder="boofbrainfan" class="w-full rounded-2xl border border-slate-200/70 dark:border-slate-700 bg-white/80 dark:bg-slate-900/50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition" />
+                        </div>
+                        <div class="grid gap-4 md:grid-cols-2">
+                            <div>
+                                <label for="password" class="block text-sm font-semibold mb-1">Password</label>
+                                <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required placeholder="••••••••" class="w-full rounded-2xl border border-slate-200/70 dark:border-slate-700 bg-white/80 dark:bg-slate-900/50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition" />
+                            </div>
+                            <div>
+                                <label for="confirmPassword" class="block text-sm font-semibold mb-1">Confirm Password</label>
+                                <input id="confirmPassword" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" required placeholder="••••••••" class="w-full rounded-2xl border border-slate-200/70 dark:border-slate-700 bg-white/80 dark:bg-slate-900/50 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition" />
+                            </div>
+                        </div>
+                        <fieldset class="space-y-3">
+                            <legend class="sr-only">Agreements</legend>
+                            <label class="flex items-start gap-3 text-sm font-medium text-mutedLight dark:text-mutedDark">
+                                <input id="ageVerified" name="ageVerified" type="checkbox" class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" />
+                                <span>I am 21 years of age or older (or the legal age in my region).</span>
+                            </label>
+                            <label class="flex items-start gap-3 text-sm font-medium text-mutedLight dark:text-mutedDark">
+                                <input id="termsAgreed" name="termsAgreed" type="checkbox" class="mt-1 rounded border-slate-300 text-primary focus:ring-primary" />
+                                <span>I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a>.</span>
+                            </label>
+                        </fieldset>
+
+                        <div id="formMessage" class="hidden rounded-2xl border px-4 py-3 text-sm"></div>
+
+                        <button type="submit" class="w-full rounded-2xl bg-primary text-white font-bold py-3.5 shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition disabled:opacity-70 disabled:cursor-not-allowed">
+                            Create account
+                        </button>
+                    </form>
+                </section>
+            </div>
+        </main>
+
+        <footer class="px-6 md:px-10 pb-10 text-center text-sm text-mutedLight dark:text-mutedDark">
+            &copy; 2024 Boofbrain. All rights reserved.
+        </footer>
+    </div>
+
+    <script type="module" src="/js/register.js"></script>
+</body>
+</html>
