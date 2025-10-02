@@ -3,6 +3,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
 
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
 
 const app = express();
@@ -30,6 +31,14 @@ const pool = mysql.createPool({
   ),
   queueLimit: 0
 });
+
+const jwtSecret = process.env.JWT_SECRET;
+
+if (!jwtSecret) {
+  console.warn(
+    'Warning: JWT_SECRET is not defined. Login functionality will not work without it.'
+  );
+}
 
 app.use(express.json());
 
@@ -163,6 +172,105 @@ app.post('/api/register', async (req, res) => {
     }
 
     console.error('Registration error:', error);
+    res.status(500).json({ error: 'An unexpected error occurred.' });
+  } finally {
+    if (connection) {
+      connection.release();
+    }
+  }
+});
+
+app.post('/api/login', async (req, res) => {
+  const { email, username, password } = req.body || {};
+
+  if (!password || typeof password !== 'string') {
+    return res.status(400).json({
+      error: 'Password is required.'
+    });
+  }
+
+  const hasEmail = typeof email === 'string' && email.trim() !== '';
+  const hasUsername = typeof username === 'string' && username.trim() !== '';
+
+  if (!hasEmail && !hasUsername) {
+    return res.status(400).json({
+      error: 'Either an email or username must be provided.'
+    });
+  }
+
+  if (!jwtSecret) {
+    return res.status(500).json({
+      error: 'Authentication is not configured.'
+    });
+  }
+
+  const normalizedEmail = hasEmail ? email.trim().toLowerCase() : null;
+  const normalizedUsername = hasUsername ? username.trim() : null;
+
+  const identifierField = hasEmail ? 'email' : 'username';
+  const identifierValue = hasEmail ? normalizedEmail : normalizedUsername;
+
+  let connection;
+
+  try {
+    connection = await pool.getConnection();
+
+    const [rows] = await connection.execute(
+      `SELECT id, email, username, password_hash, role, status FROM users WHERE ${identifierField} = ? LIMIT 1`,
+      [identifierValue]
+    );
+
+    if (!rows || rows.length === 0) {
+      return res.status(401).json({ error: 'Invalid credentials.' });
+    }
+
+    const user = rows[0];
+
+    if (user.status === 'banned') {
+      return res.status(403).json({
+        error: 'Account is banned.'
+      });
+    }
+
+    const passwordMatches = await bcrypt.compare(password, user.password_hash || '');
+
+    if (!passwordMatches) {
+      await connection.execute(
+        'UPDATE users SET failed_attempts = failed_attempts + 1 WHERE id = ?',
+        [user.id]
+      );
+
+      return res.status(401).json({ error: 'Invalid credentials.' });
+    }
+
+    const now = new Date();
+
+    await connection.execute(
+      'UPDATE users SET login_count = login_count + 1, failed_attempts = 0, last_login_at = ? WHERE id = ?',
+      [now, user.id]
+    );
+
+    const token = jwt.sign(
+      {
+        sub: user.id,
+        role: user.role
+      },
+      jwtSecret,
+      { expiresIn: '1h' }
+    );
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        role: user.role,
+        status: user.status
+      }
+    });
+  } catch (error) {
+    console.error('Login error:', error);
     res.status(500).json({ error: 'An unexpected error occurred.' });
   } finally {
     if (connection) {
